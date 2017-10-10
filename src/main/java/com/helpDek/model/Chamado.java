@@ -9,7 +9,6 @@ public class Chamado {
 	private String situacao;
 	private int idCliente;
 	public Chamado(int id, String descricao, String categoria, String assunto, String situacao, int idCliente) {
-		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.categoria = categoria;

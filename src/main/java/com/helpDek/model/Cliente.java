@@ -6,7 +6,6 @@ public class Cliente {
 	private String telefone;
 	private String email;
 	public Cliente(int id, String nome, String telefone, String email) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;

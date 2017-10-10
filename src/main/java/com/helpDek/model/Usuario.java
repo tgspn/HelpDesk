@@ -9,7 +9,6 @@ private String senha;
 private int idFuncao;
 
 public Usuario(int id, String nome, String tipoUsuario, String usuario, String senha, int idFuncao) {
-	super();
 	this.id = id;
 	this.nome = nome;
 	this.tipoUsuario = tipoUsuario;
