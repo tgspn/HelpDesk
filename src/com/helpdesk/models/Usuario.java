@@ -1,4 +1,4 @@
-package com.helpDek.model;
+package com.helpdesk.models;
 
 public class Usuario {
 private int id;
