@@ -24,9 +24,9 @@ public class PrincipalController implements Initializable {
 
 	@FXML
 	private MenuBar menuBar;
-	public static final ObservableList names =  FXCollections.observableArrayList();
+	public static final ObservableList<String> names =  FXCollections.observableArrayList();
 	@FXML
-	private ListView lvRequerimentos;
+	private ListView<String> lvRequerimentos;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

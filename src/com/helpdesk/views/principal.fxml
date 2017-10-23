@@ -18,7 +18,7 @@
               <MenuItem mnemonicParsing="false" onAction="#handleCloseAction" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" onAction="#handleNovoAction" text="Novo">
+          <Menu mnemonicParsing="false" text="Novo">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleNovoAction" text="Requerimento" />
                </items>
