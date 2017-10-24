@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.13875598086124402" layoutX="-5.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="420.0" prefWidth="597.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="153.0" prefWidth="595.0">
+               <children>
+                  <Label id="lblCliente" layoutX="14.0" layoutY="6.0" prefHeight="25.0" prefWidth="90.0" text="Clientes">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button id="btnExcluir" layoutX="496.0" layoutY="21.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Excluir" />
+                  <Button id="btnEditar" layoutX="402.0" layoutY="21.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Editar" />
+                <Button id="btnNovo" layoutX="307.0" layoutY="21.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Novo" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="595.0">
+               <children>
+                  <ButtonBar layoutX="381.0" layoutY="295.0" prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                      <Button id="btnSalvar" minWidth="46.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Salvar" />
+                        <Button id="btnSair" mnemonicParsing="false" prefHeight="26.0" text="Sair" />
+                    </buttons>
+                  </ButtonBar>
+                  <Label layoutX="207.0" layoutY="75.0" text="Nome" />
+                  <Label layoutX="207.0" layoutY="131.0" text="E-mail" />
+                  <Label layoutX="207.0" layoutY="188.0" text="Telefone" />
+                  <TextField id="txtNome" layoutX="207.0" layoutY="92.0" prefHeight="25.0" prefWidth="180.0" />
+                  <TextField id="txtEmail" layoutX="208.0" layoutY="148.0" prefHeight="25.0" prefWidth="180.0" />
+                  <TextField id="txtTelefone" layoutX="207.0" layoutY="205.0" prefHeight="25.0" prefWidth="180.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
