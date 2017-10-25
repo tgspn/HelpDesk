@@ -53,6 +53,7 @@ public class NovoRequerimentoController implements Initializable {
 		Categoria.add("Hardware");	
 		
 	}
+	
 
 	@FXML
 	private void handleConfirmarAction(final ActionEvent event) {

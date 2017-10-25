@@ -21,6 +21,7 @@
           <Menu mnemonicParsing="false" text="Novo">
                <items>
                   <MenuItem mnemonicParsing="false" text="Cliente" />
+                  <MenuItem mnemonicParsing="false" text="Técnico" />
                   <MenuItem mnemonicParsing="false" onAction="#handleNovoAction" text="Requerimento" />
                </items>
             </Menu>
