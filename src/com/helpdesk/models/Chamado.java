@@ -8,6 +8,8 @@ public class Chamado {
 	private String assunto;
 	private String situacao;
 	private int idCliente;
+	
+	
 	public Chamado(int id, String descricao, String categoria, String assunto, String situacao, int idCliente) {
 		this.id = id;
 		this.descricao = descricao;
@@ -51,6 +53,18 @@ public class Chamado {
 	}
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
+	}
+	
+	public void CopyTo(Chamado destino) throws Exception {
+		if(destino==null)
+			throw new Exception("O destino é nulo");
+		
+		destino.assunto=this.assunto;
+		destino.categoria=this.categoria;
+		destino.descricao=this.descricao;
+		destino.id=this.id;
+		destino.idCliente=this.idCliente;
+		destino.situacao=this.situacao;
 	}
 	
 	

@@ -12,19 +12,37 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;;
 
-public class ClienteCadastroController implements Initializable {
+public class TecnicoCadastroController implements Initializable {
 	
 	@FXML
-	private TextArea txtNome;
+	private Button btnExcluir;
 	@FXML
-	private TextArea txtTelefone;
+	private Button btnEditar;
 	@FXML
-	private TextArea txtEmail;
-
+	private Button btnNovo;
+	@FXML
+	private Button btnSalvar;
+	@FXML
+	private Button btnBuscar;
+	
+	@FXML
+	private TextField txtNome;
+	@FXML
+	private TextField txtEmail;
+	@FXML
+	private TextField txtTelefone;
+	@FXML
+	private TextField txtBusca;	
+	@FXML
+	private TableView dgvCliente;
+	
+	
+	
 	private ClienteDAO dao;
-	// private ObservableList<Cliente> clientes = PrincipalController.Clientes;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

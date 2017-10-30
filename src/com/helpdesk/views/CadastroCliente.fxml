@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.ClienteCadastroController">
    <children>
       <SplitPane dividerPositions="0.13875598086124402" layoutX="-5.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="420.0" prefWidth="597.0">
         <items>
@@ -28,8 +28,10 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="881.0">
                <children>
-                  <ButtonBar layoutX="381.0" layoutY="308.0" prefHeight="40.0" prefWidth="200.0">
-                     <buttons>
+                 
+                  <ButtonBar layoutX="381.0" layoutY="295.0" prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                      <Button id="btnSalvar" minWidth="46.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="25.0" prefWidth="98.0" text="Salvar" />
                         <Button id="btnSair" mnemonicParsing="false" prefHeight="26.0" text="Sair" />
                      </buttons>
                   </ButtonBar>
@@ -48,7 +50,7 @@
                   </TableView>
                 <Button id="btnSalvar" layoutX="94.0" layoutY="252.0" minWidth="46.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Salvar" />
                   <TextField id="txtNome" layoutX="253.0" layoutY="277.0" prefHeight="25.0" prefWidth="240.0" />
-                  <Button id="btnSalvar" layoutX="506.0" layoutY="277.0" minWidth="33.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Buscar" />
+                  <Button fx:id="btnSalvar" layoutX="506.0" layoutY="277.0" minWidth="33.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Buscar" />
                </children>
             </AnchorPane>
         </items>

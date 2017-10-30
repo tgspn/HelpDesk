@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="796.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.NovoRequerimentoController">
+<AnchorPane prefHeight="796.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.RequisicoesCadastroController">
    <children>
       <SplitPane dividerPositions="0.8875" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -23,34 +23,34 @@
                <children>
                   <Pane layoutX="-194.0" layoutY="-126.0" prefHeight="620.0" prefWidth="786.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ComboBox id="cmbCategoria" fx:id="cmbCategoria" layoutX="37.0" layoutY="94.0" prefHeight="31.0" prefWidth="248.0" />
+                        <ComboBox fx:id="cmbCategoria" layoutX="37.0" layoutY="94.0" prefHeight="31.0" prefWidth="248.0" />
                         <Label layoutX="37.0" layoutY="77.0" text="Categoria" />
                         <Label layoutX="322.0" layoutY="77.0" text="Assunto" />
                         <Label layoutX="37.0" layoutY="138.0" text="Descrição" />
-                        <TextField id="txtAssunto" fx:id="txtAssunto" layoutX="322.0" layoutY="94.0" prefHeight="31.0" prefWidth="248.0" />
-                        <TextArea id="txtDescricao" fx:id="txtDescricao" layoutX="37.0" layoutY="155.0" prefHeight="101.0" prefWidth="532.0" />
+                        <TextField fx:id="txtAssunto" layoutX="322.0" layoutY="94.0" prefHeight="31.0" prefWidth="248.0" />
+                        <TextArea fx:id="txtDescricao" layoutX="37.0" layoutY="155.0" prefHeight="101.0" prefWidth="532.0" />
                         <Label layoutX="29.0" layoutY="23.0" text="Requisições">
                            <font>
                               <Font size="21.0" />
                            </font>
                         </Label>
-                        <TableView id="dgvRequisiçoes" layoutX="38.0" layoutY="335.0" prefHeight="350.0" prefWidth="968.0">
+                        <TableView fx:id="dgvRequisicoes" layoutX="38.0" layoutY="335.0" prefHeight="350.0" prefWidth="968.0">
                           <columns>
-                            <TableColumn id="colCategoria" prefWidth="145.0" text="Categoria" />
-                            <TableColumn id="colAssunto" prefWidth="192.0" text="Assunto" />
-                              <TableColumn id="colSituacao" minWidth="7.0" prefWidth="228.0" text="Situação" />
-                              <TableColumn id="colNotas" minWidth="7.0" prefWidth="402.0" text="Anotações" />
+                            <TableColumn fx:id="colCategoria" prefWidth="145.0" text="Categoria" />
+                            <TableColumn fx:id="colAssunto" prefWidth="192.0" text="Assunto" />
+                              <TableColumn fx:id="colSituacao" minWidth="7.0" prefWidth="228.0" text="Situação" />
+                              <!--  <TableColumn fx:id="colNotas" minWidth="7.0" prefWidth="402.0" text="Anotações" />-->
                           </columns>
                         </TableView>
                         <Label layoutX="38.0" layoutY="279.0" text="Pesquisa" />
-                        <TextField id="txtPesquisa" fx:id="txtAssunto1" layoutX="38.0" layoutY="296.0" prefHeight="31.0" prefWidth="248.0" />
+                        <TextField fx:id="txtPesquisa" layoutX="38.0" layoutY="296.0" prefHeight="31.0" prefWidth="248.0" />
                         <Button id="btnPesquisa" defaultButton="true" layoutX="298.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="31.0" prefWidth="75.0" text="Buscar" />
                         <Label layoutX="598.0" layoutY="69.0" text="Situação:" />
-                        <RadioButton id="rdbAberto" layoutX="607.0" layoutY="101.0" mnemonicParsing="false" text="Aberto" />
-                        <RadioButton id="rdbAtendimento" layoutX="694.0" layoutY="101.0" mnemonicParsing="false" text="Em atendimento" />
-                        <RadioButton id="rdbFechado" layoutX="828.0" layoutY="101.0" mnemonicParsing="false" text="Fechado" />
+                        <RadioButton fx:id="rdbAberto" layoutX="607.0" layoutY="101.0" mnemonicParsing="false" text="Aberto" />
+                        <RadioButton fx:id="rdbAtendimento" layoutX="694.0" layoutY="101.0" mnemonicParsing="false" text="Em atendimento" />
+                        <RadioButton fx:id="rdbFechado" layoutX="848.0" layoutY="101.0" mnemonicParsing="false" text="Fechado" />
                         <Button defaultButton="true" layoutX="931.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="31.0" prefWidth="75.0" text="Anotar" />
-                        <TextField id="txtNota" fx:id="txtAssunto2" layoutX="593.0" layoutY="155.0" prefHeight="101.0" prefWidth="415.0" />
+                        <TextField fx:id="txtNota" layoutX="593.0" layoutY="155.0" prefHeight="101.0" prefWidth="415.0" />
                         <Label layoutX="596.0" layoutY="138.0" text="Notas:" />
                      </children>
                   </Pane>
@@ -60,16 +60,16 @@
                <children>
                   <ButtonBar layoutX="125.0" prefHeight="60.0" prefWidth="467.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <buttons>
-                        <Button id="btnNovo" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Novo" />
-                        <Button id="btnEditar" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Editar" />
-                        <Button id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Salvar" />
-                        <Button id="btnExcluir" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Excluir" />
+                        <Button fx:id="btnNovo" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Novo" />
+                        <Button fx:id="btnEditar" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Editar" />
+                        <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Salvar" />
+                        <Button fx:id="btnExcluir" defaultButton="true" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Excluir" />
                      </buttons>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </ButtonBar>
-                  <Button id="btnVoltar" defaultButton="true" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Voltar" />
+                  <Button fx:id="btnVoltar" defaultButton="true" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleConfirmarAction" text="Voltar" />
                </children>
             </AnchorPane>
          </items>
