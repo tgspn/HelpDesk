@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -67,6 +68,7 @@ public class RequisicoesCadastroController implements Initializable {
 	//@FXML
 	//private TableColumn<Chamado, String> colNotas;
 	private ChamadoDAO dao;
+	private Chamado model;
 	private ObservableList<String> Categoria = FXCollections.observableArrayList();
 
 	@Override
@@ -96,15 +98,31 @@ public class RequisicoesCadastroController implements Initializable {
 		    }
 		});
 		
+	
 	}
 
 	@FXML
 	private void handleConfirmarAction(final ActionEvent event) {
+		String situacao="";
+		
+		if(rdbAberto.isSelected())
+			situacao="Aberto";
+		if(rdbAtendimento.isSelected())
+			situacao="Atendimento";
+		if(rdbFechado.isSelected())
+			situacao="Fechado";
 
+		if(model==null)
 		dao.Insert(new Chamado(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
-				txtAssunto.getText(), "Aberto", 1));
+				txtAssunto.getText(), situacao, 1));
+		else {
+			model.setDescricao(txtDescricao.getText());
+			model.setCategoria(cmbCategoria.getValue());
+			model.setAssunto(txtAssunto.getText());
+			model.setSituacao(situacao);
+		}
 		txtDescricao.clear();
-		cmbCategoria.setSelectionModel(null);
+		cmbCategoria.setValue(null);
 		txtAssunto.clear();
 		
 		txtDescricao.setDisable(true);
@@ -126,5 +144,32 @@ public class RequisicoesCadastroController implements Initializable {
 		txtAssunto.setDisable(false);
 		txtNota.setDisable(false);
 		btnSalvar.setDisable(false);
+		
+		txtDescricao.clear();
+		cmbCategoria.setValue(null);
+		txtAssunto.clear();
+	}
+	
+	@FXML
+	private void handleEditAction(final ActionEvent event)
+	{
+		
+		Chamado chamado=dgvRequisicoes.getSelectionModel().selectedItemProperty().get();
+		txtDescricao.setText(chamado.getDescricao());
+		txtAssunto.setText(chamado.getAssunto());
+		cmbCategoria.setValue(chamado.getCategoria());
+		
+		txtDescricao.setDisable(false);
+		cmbCategoria.setDisable(false);
+		txtAssunto.setDisable(false);
+		txtNota.setDisable(false);
+		btnSalvar.setDisable(false);
+
+	}
+	
+	@FXML
+	private void handleExcluirAction(final ActionEvent event)
+	{
+		
 	}
 }
