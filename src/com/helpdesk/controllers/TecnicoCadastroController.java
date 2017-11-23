@@ -52,19 +52,28 @@ public class TecnicoCadastroController implements Initializable {
 
 	@FXML
 	private void handleConfirmarAction(final ActionEvent event) {
-//		if (model == null) {
-//			String situacao = "Aberto";
-//			dao.Insert(new Tecnico(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
-//					txtAssunto.getText(), situacao, 1));
-//		} else {
-//			model.setDescricao(txtDescricao.getText());
-//			model.setCategoria(cmbCategoria.getValue());
-//			model.setAssunto(txtAssunto.getText());
-//
-//			dgvRequisicoes.refresh();
-//
-//		}
-//		setInitial();
+		if (model == null) {
+
+			dao.Insert(getModel());
+		} else {
+			model.setNome(txtNome.getText());
+			model.setSenha("");
+			model.setTipoUsuario("");
+			model.setUsuario("");
+
+		}
+		setInitial();
+	}
+
+	private Tecnico getModel() {
+
+		return new Tecnico(0, txtNome.getText(), "", "", "", 0);
+	}
+	private void setInitial() {
+		txtNome.clear();
+		txtBusca.clear();
+		txtEmail.clear();
+		txtTelefone.clear();
 	}
 
 }
