@@ -4,14 +4,14 @@ import java.util.Comparator;
 
 import com.helpdesk.models.Chamado;
 import com.helpdesk.models.Cliente;
-import com.helpdesk.models.Usuario;
+import com.helpdesk.models.Tecnico;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class TecnicoDAO implements HelpdeskDAO<Usuario> {
+public class TecnicoDAO implements HelpdeskDAO<Tecnico> {
 
-	private static ObservableList<Usuario> list;
+	private static ObservableList<Tecnico> list;
 
 	public TecnicoDAO() {
 		if (list == null)
@@ -19,7 +19,7 @@ public class TecnicoDAO implements HelpdeskDAO<Usuario> {
 	}
 
 	@Override
-	public void Insert(Usuario model) {
+	public void Insert(Tecnico model) {
 		int lastIndex = 0;
 		if (list.stream().count() > 0) {
 			lastIndex = list.stream().max(Comparator.comparingInt(x -> x.getId())).get().getId();
@@ -29,13 +29,13 @@ public class TecnicoDAO implements HelpdeskDAO<Usuario> {
 	}
 
 	@Override
-	public void Remove(Usuario model) {
+	public void Remove(Tecnico model) {
 		list.remove(model);
 	}
 
 	@Override
-	public void Update(Usuario model) {
-		Usuario modelOriginal = list.stream().filter(x -> x.getId() == model.getId()).findFirst().get();
+	public void Update(Tecnico model) {
+		Tecnico modelOriginal = list.stream().filter(x -> x.getId() == model.getId()).findFirst().get();
 		try {
 			model.CopyTo(modelOriginal);
 		} catch (Exception e) {
@@ -46,7 +46,7 @@ public class TecnicoDAO implements HelpdeskDAO<Usuario> {
 	}
 
 	@Override
-	public ObservableList<Usuario> List() {
+	public ObservableList<Tecnico> List() {
 		return list;
 	}
 

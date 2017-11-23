@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.helpdesk.dao.ClienteDAO;
+import com.helpdesk.dao.TecnicoDAO;
 import com.helpdesk.models.Chamado;
 import com.helpdesk.models.Cliente;
+import com.helpdesk.models.Tecnico;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,7 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;;
 
 public class TecnicoCadastroController implements Initializable {
-	
+
 	@FXML
 	private Button btnExcluir;
 	@FXML
@@ -28,7 +30,7 @@ public class TecnicoCadastroController implements Initializable {
 	private Button btnSalvar;
 	@FXML
 	private Button btnBuscar;
-	
+
 	@FXML
 	private TextField txtNome;
 	@FXML
@@ -36,23 +38,33 @@ public class TecnicoCadastroController implements Initializable {
 	@FXML
 	private TextField txtTelefone;
 	@FXML
-	private TextField txtBusca;	
+	private TextField txtBusca;
 	@FXML
 	private TableView dgvCliente;
-	
-	
-	
-	private ClienteDAO dao;
+
+	private TecnicoDAO dao;
+	private Tecnico model;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dao = new ClienteDAO();
+		dao = new TecnicoDAO();
 	}
 
 	@FXML
 	private void handleConfirmarAction(final ActionEvent event) {
-
-		dao.Insert(new Cliente(0, txtNome.getText(), txtTelefone.getText(), txtEmail.getText()));
-		((Parent) (event.getSource())).getScene().getWindow().hide();
+//		if (model == null) {
+//			String situacao = "Aberto";
+//			dao.Insert(new Tecnico(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
+//					txtAssunto.getText(), situacao, 1));
+//		} else {
+//			model.setDescricao(txtDescricao.getText());
+//			model.setCategoria(cmbCategoria.getValue());
+//			model.setAssunto(txtAssunto.getText());
+//
+//			dgvRequisicoes.refresh();
+//
+//		}
+//		setInitial();
 	}
+
 }

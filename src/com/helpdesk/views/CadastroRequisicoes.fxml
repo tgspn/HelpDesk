@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="864.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.RequisicoesCadastroController">
+<AnchorPane prefHeight="864.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.RequisicoesCadastroController">
    <children>
       <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -20,7 +20,7 @@
                <children>
                   <Pane prefHeight="862.0" prefWidth="1324.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-166.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ComboBox fx:id="cmbCategoria" layoutX="59.0" layoutY="179.0" prefHeight="31.0" prefWidth="407.0" />
+                        <ComboBox fx:id="cmbCategoria" layoutX="58.0" layoutY="183.0" prefHeight="31.0" prefWidth="407.0" />
                         <Label layoutX="56.0" layoutY="162.0" text="Categoria" />
                         <Label layoutX="59.0" layoutY="246.0" text="Assunto" />
                         <Label layoutX="56.0" layoutY="324.0" text="Descrição" />
@@ -44,31 +44,31 @@
                         <Button id="btnPesquisa" defaultButton="true" layoutX="1183.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="31.0" prefWidth="75.0" text="Buscar" />
                         <TextField fx:id="txtNota" layoutX="56.0" layoutY="565.0" prefHeight="183.0" prefWidth="407.0" />
                         <Label layoutX="59.0" layoutY="548.0" text="Notas:" />
-                        <Label layoutX="475.0" layoutY="804.0" text="Aberto" textFill="#27b522">
+                        <Label fx:id="lblAberto" layoutX="475.0" layoutY="804.0" text="Aberto" textFill="#27b522">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="566.0" layoutY="804.0" text="Bloqueado" textFill="#bf0f0f">
+                        <Label fx:id="lblBloqueado" layoutX="566.0" layoutY="804.0" text="Bloqueado" textFill="#bf0f0f">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="680.0" layoutY="804.0" text="Em Atendimento" textFill="#c6a33c">
+                        <Label fx:id="lblAtendimento" layoutX="680.0" layoutY="804.0" text="Em Atendimento" textFill="#c6a33c">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="853.0" layoutY="804.0" text="Finalizado" textFill="#1229e0">
+                        <Label fx:id="lblFinalizado" layoutX="853.0" layoutY="804.0" text="Finalizado" textFill="#1229e0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnNovo" defaultButton="true" layoutX="99.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="36.0" prefWidth="75.0" text="Novo" />
-                        <Button fx:id="btnEditar" defaultButton="true" layoutX="184.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="36.0" prefWidth="75.0" text="Editar" />
+                        <Button fx:id="btnNovo" defaultButton="true" layoutX="99.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleNovoAction" prefHeight="36.0" prefWidth="75.0" text="Novo" />
+                        <Button fx:id="btnEditar" defaultButton="true" layoutX="184.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleEditAction" prefHeight="36.0" prefWidth="75.0" text="Editar" />
                         <Button fx:id="btnSalvar" defaultButton="true" layoutX="269.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="36.0" prefWidth="75.0" text="Salvar" />
-                        <Button fx:id="btnExcluir" defaultButton="true" layoutX="354.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="36.0" prefWidth="75.0" text="Excluir" />
-                        <Button fx:id="btnVoltar" defaultButton="true" layoutX="1196.0" layoutY="782.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="36.0" prefWidth="62.0" text="Voltar" />
+                        <Button fx:id="btnExcluir" defaultButton="true" layoutX="354.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleExcluirAction" prefHeight="36.0" prefWidth="75.0" text="Excluir" />
+                        <Button fx:id="btnVoltar" defaultButton="true" layoutX="1196.0" layoutY="782.0" mnemonicParsing="false" onAction="#handleVoltarAction" prefHeight="36.0" prefWidth="62.0" text="Voltar" />
                         <Label layoutX="344.0" layoutY="800.0" prefHeight="35.0" prefWidth="119.0" text="Situação: ">
                            <font>
                               <Font size="25.0" />

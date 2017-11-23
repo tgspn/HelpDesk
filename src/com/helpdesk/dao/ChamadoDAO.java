@@ -21,7 +21,7 @@ public class ChamadoDAO implements HelpdeskDAO<Chamado> {
 	public void Insert(Chamado model) {
 		int lastIndex = 0;
 		if (list.stream().count() > 0) {
-			lastIndex = list.stream().max(Comparator.comparingInt(x -> x.getId())).get().getId();
+			lastIndex = list.stream().max(Comparator.comparingInt(x -> x.getId())).get().getId()+1;
 		}
 		model.setId(lastIndex);
 		list.add(model);

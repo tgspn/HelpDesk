@@ -1,6 +1,6 @@
 package com.helpdesk.models;
 
-public class Usuario {
+public class Tecnico {
 	private int id;
 	private String nome;
 	private String tipoUsuario;
@@ -8,7 +8,7 @@ public class Usuario {
 	private String senha;
 	private int idFuncao;
 
-	public Usuario(int id, String nome, String tipoUsuario, String usuario, String senha, int idFuncao) {
+	public Tecnico(int id, String nome, String tipoUsuario, String usuario, String senha, int idFuncao) {
 		this.id = id;
 		this.nome = nome;
 		this.tipoUsuario = tipoUsuario;
@@ -65,7 +65,7 @@ public class Usuario {
 		this.idFuncao = idFuncao;
 	}
 
-	public void CopyTo(Usuario destino) throws Exception {
+	public void CopyTo(Tecnico destino) throws Exception {
 		if (destino == null)
 			throw new Exception("O destino não pode ser nulo");
 
