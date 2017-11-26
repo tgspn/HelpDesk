@@ -1,32 +1,28 @@
 package com.helpdesk.controllers;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.helpdesk.dao.ChamadoDAO;
-import com.helpdesk.dao.ClienteDAO;
 import com.helpdesk.models.Chamado;
-import com.helpdesk.models.Cliente;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 public class RequisicoesCadastroController implements Initializable {
 
@@ -78,60 +74,88 @@ public class RequisicoesCadastroController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dao = new ChamadoDAO();
+		try {
+			dao = new ChamadoDAO();
 
-		cmbCategoria.setItems(Categoria);
+			cmbCategoria.setItems(Categoria);
 
-		Categoria.add("Redes");
-		Categoria.add("Software");
-		Categoria.add("Hardware");
+			Categoria.add("Redes");
+			Categoria.add("Software");
+			Categoria.add("Hardware");
 
-		colCategoria.setCellValueFactory(new PropertyValueFactory<Chamado, String>("categoria"));
-		colAssunto.setCellValueFactory(new PropertyValueFactory<Chamado, String>("assunto"));
-		colSituacao.setCellValueFactory(new PropertyValueFactory<Chamado, String>("situacao"));
+			colCategoria.setCellValueFactory(new PropertyValueFactory<Chamado, String>("categoria"));
+			colAssunto.setCellValueFactory(new PropertyValueFactory<Chamado, String>("assunto"));
+			colSituacao.setCellValueFactory(new PropertyValueFactory<Chamado, String>("situacao"));
 
-		dgvRequisicoes.setItems(dao.List());
+			dgvRequisicoes.setItems(dao.List());
 
-		dgvRequisicoes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				btnEditar.setDisable(false);
-				btnExcluir.setDisable(false);
-				
-				Chamado model=newSelection;
-				txtDescricao.setText(model.getDescricao());
-				txtAssunto.setText(model.getAssunto());
-				cmbCategoria.setValue(model.getCategoria());
-				setSituacao(model.getSituacao());
-				
-			} else {
-				btnEditar.setDisable(true);
-				btnExcluir.setDisable(true);
-				setInitial();
-			}
-		});
+			dgvRequisicoes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+				if (newSelection != null) {
+					btnEditar.setDisable(false);
+					btnExcluir.setDisable(false);
 
-		setInitial();
+					Chamado model = newSelection;
+					txtDescricao.setText(model.getDescricao());
+					txtAssunto.setText(model.getAssunto());
+					cmbCategoria.setValue(model.getCategoria());
+					setSituacao(model.getSituacao());
+
+				} else {
+					btnEditar.setDisable(true);
+					btnExcluir.setDisable(true);
+					setInitial();
+				}
+			});
+
+			setInitial();
+		} catch (ClassNotFoundException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro");
+			alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
+
+			alert.showAndWait();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro");
+			alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
+
+			alert.showAndWait();
+		}
 
 	}
 
 	@FXML
 	private void handleConfirmarAction(final ActionEvent event) {
+		try {
+			if (model == null) {
+				String situacao = "Aberto";
 
-		if (model == null) {
-			String situacao = "Aberto";
-			dao.Insert(new Chamado(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
-					txtAssunto.getText(), situacao, 1));
-		} else {
-			model.setDescricao(txtDescricao.getText());
-			model.setCategoria(cmbCategoria.getValue());
-			model.setAssunto(txtAssunto.getText());
+				dao.Insert(new Chamado(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
+						txtAssunto.getText(), situacao, 1));
 
-			dgvRequisicoes.refresh();
+			} else {
 
+				model.setDescricao(txtDescricao.getText());
+				model.setCategoria(cmbCategoria.getValue());
+				model.setAssunto(txtAssunto.getText());
+
+				dao.Update(model);
+
+				dgvRequisicoes.refresh();
+
+			}
+			setInitial();
+
+		} catch (SQLException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro");
+			alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
+
+			alert.showAndWait();
 		}
-		setInitial();
-
-		// ((Parent) (event.getSource())).getScene().getWindow().hide();
 	}
 
 	@FXML
@@ -160,18 +184,28 @@ public class RequisicoesCadastroController implements Initializable {
 		txtAssunto.setText(model.getAssunto());
 		cmbCategoria.setValue(model.getCategoria());
 		setSituacao(model.getSituacao());
-		
+
 		txtDescricao.setDisable(false);
 		cmbCategoria.setDisable(false);
 		txtAssunto.setDisable(false);
 		txtNota.setDisable(false);
 		btnSalvar.setDisable(false);
-		
+
 	}
 
 	@FXML
 	private void handleExcluirAction(final ActionEvent event) {
+		Chamado model = dgvRequisicoes.getSelectionModel().selectedItemProperty().get();
+		try {
+			dao.Remove(model);
+		} catch (SQLException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro");
+			alert.setHeaderText(null);
+			alert.setContentText(e.getMessage());
 
+			alert.showAndWait();
+		}
 	}
 
 	private void setSituacao(String situacao) {
