@@ -4,6 +4,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.helpdesk.Util.Configuracao;
+import com.helpdesk.Util.MessageBox;
+import com.helpdesk.Util.Util;
 import com.helpdesk.dao.ChamadoDAO;
 import com.helpdesk.models.Chamado;
 
@@ -109,19 +112,9 @@ public class RequisicoesCadastroController implements Initializable {
 
 			setInitial();
 		} catch (ClassNotFoundException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erro");
-			alert.setHeaderText(null);
-			alert.setContentText(e.getMessage());
-
-			alert.showAndWait();
+			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
 		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erro");
-			alert.setHeaderText(null);
-			alert.setContentText(e.getMessage());
-
-			alert.showAndWait();
+			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
 		}
 
 	}
@@ -133,7 +126,7 @@ public class RequisicoesCadastroController implements Initializable {
 				String situacao = "Aberto";
 
 				dao.Insert(new Chamado(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
-						txtAssunto.getText(), situacao, 1));
+						txtAssunto.getText(), situacao, 1,Configuracao.getCurrent().getTecnico()));
 
 			} else {
 
