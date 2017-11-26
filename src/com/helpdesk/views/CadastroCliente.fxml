@@ -1,59 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.ClienteCadastroController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.ClienteCadastroController">
    <children>
-      <SplitPane dividerPositions="0.13875598086124402" layoutX="-5.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="420.0" prefWidth="597.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="153.0" prefWidth="595.0">
-               <children>
-                  <Label id="lblCliente" layoutX="14.0" layoutY="6.0" prefHeight="25.0" prefWidth="90.0" text="Clientes">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Button id="btnExcluir" layoutX="496.0" layoutY="21.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Excluir" />
-                  <Button id="btnEditar" layoutX="402.0" layoutY="21.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Editar" />
-                <Button id="btnNovo" layoutX="307.0" layoutY="21.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Novo" />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="881.0">
-               <children>
-                 
-                  <ButtonBar layoutX="381.0" layoutY="295.0" prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                      <Button id="btnSalvar" minWidth="46.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="25.0" prefWidth="98.0" text="Salvar" />
-                        <Button id="btnSair" mnemonicParsing="false" prefHeight="26.0" text="Sair" />
-                     </buttons>
-                  </ButtonBar>
-                  <Label layoutX="52.0" layoutY="74.0" text="Nome" />
-                  <Label layoutX="52.0" layoutY="130.0" text="E-mail" />
-                  <Label layoutX="52.0" layoutY="187.0" text="Telefone" />
-                  <TextField id="txtNome" layoutX="52.0" layoutY="91.0" prefHeight="25.0" prefWidth="180.0" />
-                  <TextField id="txtEmail" layoutX="53.0" layoutY="147.0" prefHeight="25.0" prefWidth="180.0" />
-                  <TextField id="txtTelefone" layoutX="52.0" layoutY="204.0" prefHeight="25.0" prefWidth="180.0" promptText=" " />
-                  <TableView id="dgvCliente" editable="true" layoutX="253.0" layoutY="30.0" prefHeight="234.0" prefWidth="328.0">
-                    <columns>
-                      <TableColumn id="colNome" prefWidth="98.0" text="Nome" />
-                      <TableColumn id="colEmail" prefWidth="116.0" text="Email" />
-                        <TableColumn id="colTelefone" minWidth="9.0" prefWidth="97.0" text="Telefone" />
-                    </columns>
-                  </TableView>
-                <Button id="btnSalvar" layoutX="94.0" layoutY="252.0" minWidth="46.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" text="Salvar" />
-                  <TextField id="txtNome" layoutX="253.0" layoutY="277.0" prefHeight="25.0" prefWidth="240.0" />
-                  <Button fx:id="btnSalvar" layoutX="506.0" layoutY="277.0" minWidth="33.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Buscar" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+    <Button id="btnSalvar" defaultButton="true" layoutX="209.0" layoutY="97.0" minWidth="46.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="40.0" prefWidth="75.0" text="Salvar" />
+      <Button id="btnSair" defaultButton="true" layoutX="1176.0" layoutY="777.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Voltar" />
+      <Label layoutX="54.0" layoutY="229.0" text="Nome" />
+      <Label layoutX="53.0" layoutY="298.0" text="E-mail" />
+      <Label layoutX="54.0" layoutY="369.0" text="Telefone" />
+      <TextField id="txtNome" layoutX="54.0" layoutY="246.0" prefHeight="30.0" prefWidth="268.0" />
+      <TextField id="txtEmail" layoutX="54.0" layoutY="315.0" prefHeight="30.0" prefWidth="268.0" />
+      <TextField id="txtTelefone" layoutX="54.0" layoutY="386.0" prefHeight="30.0" prefWidth="188.0" promptText=" " />
+      <TableView id="dgvCliente" editable="true" layoutX="448.0" layoutY="72.0" prefHeight="687.0" prefWidth="803.0">
+        <columns>
+          <TableColumn id="colNome" prefWidth="98.0" text="Nome" />
+          <TableColumn id="colEmail" prefWidth="116.0" text="Email" />
+            <TableColumn id="colTelefone" minWidth="9.0" prefWidth="97.0" text="Telefone" />
+        </columns>
+      </TableView>
+      <TextField id="txtNome" layoutX="927.0" layoutY="32.0" prefHeight="25.0" prefWidth="240.0" />
+      <Button fx:id="btnSalvar" defaultButton="true" layoutX="1176.0" layoutY="29.0" minWidth="33.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Buscar" />
+      <Label id="lblCliente" layoutX="37.0" layoutY="29.0" prefHeight="25.0" prefWidth="90.0" text="Clientes">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button id="btnExcluir" defaultButton="true" layoutX="294.0" layoutY="97.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Excluir" />
+      <Button id="btnEditar" defaultButton="true" layoutX="124.0" layoutY="97.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Editar" />
+    <Button id="btnNovo" defaultButton="true" layoutX="39.0" layoutY="97.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Novo" />
+      <Label layoutX="864.0" layoutY="36.0" text="Pesquisa" />
    </children>
 </AnchorPane>
