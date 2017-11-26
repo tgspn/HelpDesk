@@ -50,13 +50,13 @@ public abstract class repositoryBase<T> {
 		Statement statement = createStatement();
 		statement.executeUpdate("DROP TABLE IF EXISTS " + table);
 
-		Map<String, SQLLiteTypes> fields = defineFields();
+		Map<String, SQLiteTypes> fields = defineFields();
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("CREATE TABLE ");
 		sb.append(table);
 		sb.append("(");
-		for (Entry<String, SQLLiteTypes> entry : fields.entrySet()) {
+		for (Entry<String, SQLiteTypes> entry : fields.entrySet()) {
 			if (!sb.toString().endsWith("("))
 				sb.append(",");
 
@@ -219,7 +219,7 @@ public abstract class repositoryBase<T> {
 
 	protected abstract T fillObject(ResultSet result) throws SQLException;
 
-	protected abstract Map<String, SQLLiteTypes> defineFields();
+	protected abstract Map<String, SQLiteTypes> defineFields();
 
 	protected abstract String defineTableName();
 
