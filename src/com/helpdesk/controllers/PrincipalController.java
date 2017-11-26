@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.helpdesk.Util.Util;
 import com.helpdesk.dao.ChamadoDAO;
 import com.helpdesk.dao.ClienteDAO;
 import com.helpdesk.models.Chamado;
@@ -52,8 +53,7 @@ public class PrincipalController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		try {
-			CheckDB();
-
+			
 			com.helpdesk.dao.ClienteDAO c = new ClienteDAO();
 
 			Clientes = c.List();
@@ -103,38 +103,21 @@ public class PrincipalController implements Initializable {
 		}
 	}
 
-	private void CheckDB() {
-		File f = new File("sample.db");
-		if (!f.exists()) {
-			ChamadoRepository rep;
-			try {
-				rep = new ChamadoRepository();
-
-				rep.CreateTable();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-	}
+	
 
 	@FXML
 	private void handleRequisicoesAction(final ActionEvent event) {
-		OpenScene("CadastroRequisicoes.fxml");
+		Util.OpenScene("CadastroRequisicoes.fxml");
 	}
 
 	@FXML
 	private void handleClienteAction(final ActionEvent evet) {
-		OpenScene("CadastroCliente.fxml");
+		Util.OpenScene("CadastroCliente.fxml");
 	}
 
 	@FXML
 	private void handleTecnicosAction(final ActionEvent evt) {
-		OpenScene("CadastroTecnicos.fxml");
+		Util.OpenScene("CadastroTecnicos.fxml");
 	}
 
 	@FXML
@@ -153,19 +136,6 @@ public class PrincipalController implements Initializable {
 
 	}
 
-	private void OpenScene(String fileName) {
-		FXMLLoader f = new FXMLLoader();
-		Stage stage = new Stage();
-		Parent fxmlRoot;
-		try {
-			fxmlRoot = (Parent) f.load(new FileInputStream(new File("src/com/helpdesk/views/" + fileName)));
-			stage.setScene(new Scene(fxmlRoot));
-			stage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+	
 
 }
