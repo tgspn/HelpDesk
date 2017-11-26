@@ -49,9 +49,9 @@ public class LoginController implements Initializable {
 			if (user != null) {
 				Configuracao.getCurrent().setTecnico(user.getTecnico());
 				
-				if (user.getTipoUsuario() == UserType.ADMINISTRADOR.toString())
+				if (user.getTipoUsuario().equals( UserType.ADMINISTRADOR.toString()))
 					Util.OpenScene("Principal.fxml");
-				else if (user.getTipoUsuario() == UserType.TECNICO.toString())
+				else if (user.getTipoUsuario().equals( UserType.TECNICO.toString()))
 					Util.OpenScene("PrincipalTecnicos.fxml");
 				else {
 					MessageBox.Show("Não foi encontrado um tela para o seu perfil", "Erro", AlertType.ERROR);

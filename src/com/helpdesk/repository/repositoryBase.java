@@ -235,6 +235,8 @@ public abstract class repositoryBase<T> {
 				sb.append("'");
 				sb.append(o);
 				sb.append("'");
+			}else {
+				sb.append(o);
 			}
 		}
 
