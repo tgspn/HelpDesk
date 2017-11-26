@@ -56,7 +56,7 @@ public class LoginController implements Initializable {
 				else {
 					MessageBox.Show("Não foi encontrado um tela para o seu perfil", "Erro", AlertType.ERROR);
 				}
-				
+				((Parent) (event.getSource())).getScene().getWindow().hide();
 
 			} else {
 				MessageBox.Show("Usuário ou senha incorreto", "Erro", AlertType.ERROR);
