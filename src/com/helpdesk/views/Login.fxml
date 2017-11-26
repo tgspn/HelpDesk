@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
-      <Button layoutX="389.0" layoutY="320.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Ok" />
-      <Label layoutX="305.0" layoutY="251.0" text="Login" />
-      <Label layoutX="303.0" layoutY="284.0" text="Senha" />
-      <TextField id="txtLogin" layoutX="341.0" layoutY="247.0" prefHeight="25.0" prefWidth="149.0" />
-      <TextField id="txtSenha" layoutX="341.0" layoutY="280.0" prefHeight="25.0" prefWidth="149.0" />
+      <Button layoutX="430.0" layoutY="320.0" mnemonicParsing="false" onAction="#Login" prefHeight="25.0" prefWidth="53.0" text="Ok" />
+      <Label layoutX="295.0" layoutY="252.0" text="Login" />
+      <Label layoutX="293.0" layoutY="285.0" text="Senha" />
+      <TextField id="txtLogin" fx:id="txtUser" layoutX="341.0" layoutY="247.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField id="txtSenha" fx:id="txtPass" layoutX="341.0" layoutY="280.0" prefHeight="25.0" prefWidth="149.0" />
       <Label layoutX="72.0" layoutY="35.0" prefHeight="98.0" prefWidth="279.0" text="IMAGEM">
          <font>
             <Font size="58.0" />
@@ -21,6 +21,6 @@
       </Label>
       <Hyperlink layoutX="687.0" layoutY="522.0" text="Sobre" />
       <Hyperlink layoutX="635.0" layoutY="522.0" text="Ajuda" />
-      <Button layoutX="740.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Sair" />
+      <Button layoutX="740.0" layoutY="521.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="66.0" text="Sair" />
    </children>
 </AnchorPane>
