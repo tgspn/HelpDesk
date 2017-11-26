@@ -16,19 +16,22 @@ public abstract class repositoryBase<T> {
 	private String table;
 	protected ConnectionSingleton conexaoInstance;
 	private Connection connection;
+	private String defaultJoin;
+	private String defaultParams;
 
 	public repositoryBase() throws ClassNotFoundException {
 
 		conexaoInstance = ConnectionSingleton.getInstance();
 		connection = conexaoInstance.getConnection();
 		table = defineTableName();
-		
+		defaultJoin=defineDefaultJoin();
+		defaultParams=defineDefaultParams();
 		CheckTable();
 	}
 
 	private void CheckTable() {
 		try {
-			select("*","","limit 1");
+			select("*", "", "limit 1");
 		} catch (SQLException e) {
 			try {
 				CreateTable();
@@ -37,7 +40,7 @@ public abstract class repositoryBase<T> {
 				e1.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	private Statement createStatement() throws SQLException {
@@ -71,9 +74,9 @@ public abstract class repositoryBase<T> {
 	}
 
 	protected List<T> select() throws SQLException {
-		return select("*");
+		return select(defaultParams);
 	}
-
+	
 	protected List<T> select(String params) throws SQLException {
 		return select(params, "");
 	}
@@ -83,16 +86,27 @@ public abstract class repositoryBase<T> {
 	}
 
 	protected List<T> select(String params, String where, String extra) throws SQLException {
+		return select(params, defaultJoin, where, extra);
+	}
+
+	protected List<T> select(String params, String joins, String where, String extra) throws SQLException {
 		Statement statement = createStatement();
 
-		if (params.isEmpty())
-			params = "*";
+		if (params.isEmpty()&&!defaultParams.isEmpty())
+			params = defaultParams;
+		else
+			params="*";
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
 		sb.append(params);
 		sb.append(" FROM ");
 		sb.append(table);
+		if (!joins.isEmpty()) {
+			sb.append(" ");
+			sb.append(joins);
+			sb.append(" ");
+		}
 		if (!where.isEmpty()) {
 			sb.append(" WHERE ");
 			sb.append(where);
@@ -204,6 +218,9 @@ public abstract class repositoryBase<T> {
 
 		return sb.toString();
 	}
+	public List<T> findAll() throws SQLException{
+		return select();
+	}
 
 	protected abstract String[] getFieldsInsert();
 
@@ -213,14 +230,14 @@ public abstract class repositoryBase<T> {
 
 	protected abstract Object[] getValueInsert(T obj);
 
-	protected abstract Map<String, Object> getUpdateValues(T obj);
-
-	public abstract List<T> findAll() throws SQLException;
+	protected abstract Map<String, Object> getUpdateValues(T obj);	
 
 	protected abstract T fillObject(ResultSet result) throws SQLException;
 
 	protected abstract Map<String, SQLiteTypes> defineFields();
 
 	protected abstract String defineTableName();
+	protected abstract String defineDefaultJoin();
+	protected abstract String defineDefaultParams();
 
 }
