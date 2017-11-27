@@ -3,6 +3,7 @@ package com.helpdesk.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.helpdesk.Util.MessageBox;
 import com.helpdesk.dao.ClienteDAO;
 import com.helpdesk.dao.TecnicoDAO;
 import com.helpdesk.models.Chamado;
@@ -16,7 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;;
 
 public class TecnicoCadastroController implements Initializable {
 
@@ -47,28 +49,30 @@ public class TecnicoCadastroController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dao = new TecnicoDAO();
+		try {
+			dao = new TecnicoDAO();
+		} catch (ClassNotFoundException e) {
+			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
+		}
 	}
 
 	@FXML
 	private void handleConfirmarAction(final ActionEvent event) {
-		if (model == null) {
-
-			dao.Insert(getModel());
-		} else {
-			model.setNome(txtNome.getText());
-			model.setSenha("");
-			model.setTipoUsuario("");
-			model.setUsuario("");
-
-		}
+//		if (model == null) {
+//
+//			dao.Insert(getModel());
+//		} else {
+//			model.setNome(txtNome.getText());
+//			
+//
+//		}
 		setInitial();
 	}
 
-	private Tecnico getModel() {
-
-		return new Tecnico(0, txtNome.getText(), "", "", "", 0);
-	}
+//	private Tecnico getModel() {
+//
+//		return new Tecnico(0, txtNome.getText(), "", "", "", 0);
+//	}
 	private void setInitial() {
 		txtNome.clear();
 		txtBusca.clear();

@@ -38,6 +38,12 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 	protected int getPrimaryKeyValue(Usuario obj) {
 		return obj.getId();
 	}
+	
+	@Override
+	protected void setPrimaryKeyValue(Usuario obj, int value) {
+		obj.setId(value);
+		
+	}
 
 	@Override
 	protected Object[] getValueInsert(Usuario obj) {
@@ -49,7 +55,7 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 		list.add(obj.getTecnico().getId());
 		return list.toArray();
 	}
-
+		
 	@Override
 	protected Map<String, Object> getUpdateValues(Usuario obj) {
 		Map<String, Object> map = new HashMap();
@@ -99,7 +105,7 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 
 	@Override
 	protected String defineDefaultParams() {
-		return "id,tipoUsuario,usuario,senha,tecnico.id as idTecnico,nome,idFuncao";
+		return "usuario.id,tipoUsuario,usuario,senha,tecnico.id as idTecnico,nome,idFuncao";
 	}
 	
 	public Usuario Login(String user,String pass) throws NoSuchAlgorithmException, SQLException {
@@ -123,5 +129,7 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 		}
 		
 	}
+
+	
 
 }

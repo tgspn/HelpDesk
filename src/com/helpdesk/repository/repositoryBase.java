@@ -24,8 +24,8 @@ public abstract class repositoryBase<T> {
 		conexaoInstance = ConnectionSingleton.getInstance();
 		connection = conexaoInstance.getConnection();
 		table = defineTableName();
-		defaultJoin=defineDefaultJoin();
-		defaultParams=defineDefaultParams();
+		defaultJoin = defineDefaultJoin();
+		defaultParams = defineDefaultParams();
 		CheckTable();
 	}
 
@@ -76,7 +76,7 @@ public abstract class repositoryBase<T> {
 	protected List<T> select() throws SQLException {
 		return select(defaultParams);
 	}
-	
+
 	protected List<T> select(String params) throws SQLException {
 		return select(params, "");
 	}
@@ -92,10 +92,10 @@ public abstract class repositoryBase<T> {
 	protected List<T> select(String params, String joins, String where, String extra) throws SQLException {
 		Statement statement = createStatement();
 
-		if (params.isEmpty()&&!defaultParams.isEmpty())
+		if (params.isEmpty() && !defaultParams.isEmpty())
 			params = defaultParams;
 		else
-			params="*";
+			params = "*";
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
@@ -140,7 +140,29 @@ public abstract class repositoryBase<T> {
 		sb.append(InsertRefect(getValueInsert(obj)));
 		sb.append(" ) ");
 
-		return statement.executeUpdate(sb.toString());
+		if (statement.executeUpdate(sb.toString()) == 1) {
+			
+			int lastId=LastInsertedId();
+			setPrimaryKeyValue(obj, lastId);
+			
+			return lastId;
+
+		}
+
+		throw new SQLException("Falha no insert");
+
+	}
+
+	private int LastInsertedId() throws SQLException {
+
+		Statement statement = createStatement();
+
+		ResultSet generatedKeys = statement.getGeneratedKeys();
+		if (generatedKeys.next()) {
+			return generatedKeys.getInt(1);
+		} else {
+			throw new SQLException("Falha no insert");
+		}
 
 	}
 
@@ -213,12 +235,15 @@ public abstract class repositoryBase<T> {
 				sb.append("'");
 				sb.append(o);
 				sb.append("'");
+			}else {
+				sb.append(o);
 			}
 		}
 
 		return sb.toString();
 	}
-	public List<T> findAll() throws SQLException{
+
+	public List<T> findAll() throws SQLException {
 		return select();
 	}
 
@@ -227,17 +252,20 @@ public abstract class repositoryBase<T> {
 	protected abstract String getPrimaryKeyField();
 
 	protected abstract int getPrimaryKeyValue(T obj);
+	protected abstract void setPrimaryKeyValue(T obj,int value);
 
 	protected abstract Object[] getValueInsert(T obj);
 
-	protected abstract Map<String, Object> getUpdateValues(T obj);	
+	protected abstract Map<String, Object> getUpdateValues(T obj);
 
 	protected abstract T fillObject(ResultSet result) throws SQLException;
 
 	protected abstract Map<String, SQLiteTypes> defineFields();
 
 	protected abstract String defineTableName();
+
 	protected abstract String defineDefaultJoin();
+
 	protected abstract String defineDefaultParams();
 
 }

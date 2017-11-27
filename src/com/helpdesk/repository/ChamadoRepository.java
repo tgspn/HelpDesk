@@ -32,6 +32,12 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 	protected String getPrimaryKeyField() {
 		return "id";
 	}
+	
+	@Override
+	protected void setPrimaryKeyValue(Chamado obj, int value) {
+		obj.setId(value);		
+	}
+	
 	@Override
 	protected int getPrimaryKeyValue(Chamado obj) {
 		return obj.getId();
@@ -116,5 +122,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		}
 		
 	}
+
+	
 
 }
