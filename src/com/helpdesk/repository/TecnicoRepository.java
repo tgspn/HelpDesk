@@ -68,7 +68,7 @@ public class TecnicoRepository extends repositoryBase<Tecnico> {
 	protected Map<String, SQLiteTypes> defineFields() {
 		Map<String, SQLiteTypes> map = new HashMap<>();
 		map.put("id", SQLiteTypes.INTERGER_NOT_NULL_PRIMARYKEY_AUTOINCREMENT);
-		map.put("nomw", SQLiteTypes.STRING);
+		map.put("nome", SQLiteTypes.STRING);
 		map.put("idFuncao", SQLiteTypes.INTEGER);
 		return map;
 	}

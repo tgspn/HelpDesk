@@ -105,7 +105,7 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 
 	@Override
 	protected String defineDefaultParams() {
-		return "id,tipoUsuario,usuario,senha,tecnico.id as idTecnico,nome,idFuncao";
+		return "usuario.id,tipoUsuario,usuario,senha,tecnico.id as idTecnico,nome,idFuncao";
 	}
 	
 	public Usuario Login(String user,String pass) throws NoSuchAlgorithmException, SQLException {
