@@ -16,6 +16,14 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 
 	}
 
+	public List<Chamado> findAllForTecnico(int idFuncionario) throws SQLException {
+		return select("", "idTecnico=" + idFuncionario);
+	}
+
+	public List<Chamado> findAllForSituacao(String string) throws SQLException {
+		return select("", "situacao='" + string + "'");
+	}
+
 	@Override
 	protected String[] getFieldsInsert() {
 
@@ -27,17 +35,17 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		list.add("idTecnico");
 		return list.toArray(new String[0]);
 	}
-	
+
 	@Override
 	protected String getPrimaryKeyField() {
 		return "id";
 	}
-	
+
 	@Override
 	protected void setPrimaryKeyValue(Chamado obj, int value) {
-		obj.setId(value);		
+		obj.setId(value);
 	}
-	
+
 	@Override
 	protected int getPrimaryKeyValue(Chamado obj) {
 		return obj.getId();
@@ -54,7 +62,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		list.add(obj.getTecnico().getId());
 		return list.toArray();
 	}
-	
+
 	@Override
 	protected Map<String, Object> getUpdateValues(Chamado obj) {
 		Map<String, Object> map = new HashMap();
@@ -64,10 +72,9 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		map.put("assunto", obj.getAssunto());
 		map.put("situacao", obj.getSituacao());
 		map.put("idCliente", obj.getIdCliente());
-		map.put("idTecnico", obj.getTecnico().getId());
+		map.put("idTecnico", obj.getTecnico() != null ? obj.getTecnico().getId() : 0);
 		return map;
 	}
-	
 
 	@Override
 	protected Chamado fillObject(ResultSet result) throws SQLException {
@@ -78,7 +85,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		return new Chamado(result.getInt("id"), result.getString("descricao"), result.getString("categoria"),
 				result.getString("assunto"), result.getString("situacao"), result.getInt("idCliente"), tecnico);
 	}
-	
+
 	@Override
 	protected Map<String, SQLiteTypes> defineFields() {
 
@@ -93,12 +100,12 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		return map;
 
 	}
-	
+
 	@Override
 	protected String defineTableName() {
 		return "chamado";
 	}
-	
+
 	@Override
 	protected String defineDefaultJoin() {
 		return "JOIN tecnico on tecnico.id=idTecnico";
@@ -107,22 +114,20 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 	@Override
 	protected String defineDefaultParams() {
 
-		return "id,descricao,categoria,assunto,situacao,idCliente,tecnico.id as idTecnico,nome,idFuncao";
+		return "chamado.id,descricao,categoria,assunto,situacao,idCliente,tecnico.id as idTecnico,nome,idFuncao";
 	}
-	
+
 	public static void Initialize() {
 		ChamadoRepository r;
 		try {
 			r = new ChamadoRepository();
 			r.CreateTable();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
 
-	
+	}
 
 }

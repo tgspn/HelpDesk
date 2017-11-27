@@ -31,6 +31,7 @@ public class Util {
 		try {
 			fxmlRoot = (Parent) f.load(new FileInputStream(new File("src/com/helpdesk/views/" + fileName)));
 			stage.setScene(new Scene(fxmlRoot));
+			
 			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
