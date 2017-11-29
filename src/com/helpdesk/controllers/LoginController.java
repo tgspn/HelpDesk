@@ -18,13 +18,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 
 public class LoginController implements Initializable {
 
 	@FXML
 	private TextField txtUser;
 	@FXML
-	private TextField txtPass;
+	private PasswordField txtPass;
 	private UsuarioDAO dao;
 
 	@Override

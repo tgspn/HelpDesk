@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -81,6 +82,7 @@ public class CadastroUsuarioController implements Initializable {
 				model.setTipoUsuario(txtSenha.getText());
 				model.setTipoUsuario(cmbUserType.getSelectionModel().getSelectedItem().toString());
 			}
+			((Parent) (event.getSource())).getScene().getWindow().hide();
 		} catch (Exception e) {
 			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
 		}

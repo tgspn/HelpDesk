@@ -9,27 +9,24 @@ import java.util.ResourceBundle;
 
 import com.helpdesk.Util.MessageBox;
 import com.helpdesk.Util.TecnicoType;
-import com.helpdesk.Util.Util;
-import com.helpdesk.dao.ClienteDAO;
 import com.helpdesk.dao.TecnicoDAO;
-import com.helpdesk.models.Chamado;
-import com.helpdesk.models.Cliente;
 import com.helpdesk.models.Tecnico;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;;
@@ -91,6 +88,7 @@ public class TecnicoCadastroController implements Initializable {
 			colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 
 			dgvCliente.setItems(dao.List());
+			
 
 		} catch (ClassNotFoundException | SQLException e) {
 			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
@@ -109,6 +107,10 @@ public class TecnicoCadastroController implements Initializable {
 			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
 		}
 
+	}
+	@FXML
+	private void CloseHandle(final ActionEvent event) {
+		((Parent) (event.getSource())).getScene().getWindow().hide();
 	}
 
 	private void Salvar() throws SQLException {

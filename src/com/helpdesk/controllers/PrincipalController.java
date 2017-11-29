@@ -3,8 +3,15 @@ package com.helpdesk.controllers;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.helpdesk.Util.Configuracao;
+import com.helpdesk.Util.SituacaoType;
+import com.helpdesk.Util.TecnicoCategoria;
+import com.helpdesk.Util.TecnicoType;
 import com.helpdesk.Util.Util;
+import com.helpdesk.controllers.PrincipalTecnicoController.UpdateTimer;
 import com.helpdesk.dao.ChamadoDAO;
 import com.helpdesk.dao.ClienteDAO;
 import com.helpdesk.models.Chamado;
@@ -41,6 +48,7 @@ public class PrincipalController implements Initializable {
 	private ObservableList<Cliente> Clientes;// = FXCollections.observableArrayList();
 	@FXML
 	private ListView<Chamado> lvRequerimentos;
+	private Timer timer;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -57,6 +65,10 @@ public class PrincipalController implements Initializable {
 
 			chamados = cha.List();
 
+			btnClientes.setVisible(false);
+			btnTecnicos.setVisible(false);
+			if(Configuracao.getCurrent().getTecnico().getCategoria().isEmpty())
+				btnTecnicos.setVisible(true);
 			lvRequerimentos.setItems(chamados);
 			lvRequerimentos.setCellFactory(new Callback<ListView<Chamado>, ListCell<Chamado>>() {
 
@@ -69,7 +81,7 @@ public class PrincipalController implements Initializable {
 						protected void updateItem(Chamado t, boolean bln) {
 							super.updateItem(t, bln);
 							if (t != null) {
-								setText("[" + t.getId() + "] " + t.getAssunto() + " - " + t.getCategoria());
+								setText("[" + t.getId() + "] " + t.getAssunto() + " - " + t.getCategoria()+" - "+t.getSituacao());
 							}
 						}
 
@@ -78,6 +90,9 @@ public class PrincipalController implements Initializable {
 					return cell;
 				}
 			});
+			
+			timer = new Timer();
+			timer.schedule(new UpdateTimer(cha), 1000, 1000);
 
 		} catch (ClassNotFoundException e) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -133,6 +148,25 @@ public class PrincipalController implements Initializable {
 		}
 		System.exit(0);
 
+	}
+	
+	class UpdateTimer extends TimerTask {
+
+		private ChamadoDAO dao;
+
+		public UpdateTimer(ChamadoDAO dao) {
+			this.dao = dao;
+		}
+
+		public void run() {
+			try {
+				dao.List();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

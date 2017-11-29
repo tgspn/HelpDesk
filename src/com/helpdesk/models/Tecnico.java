@@ -11,6 +11,10 @@ public class Tecnico {
 	private String telefone;
 	private int idFuncao;
 
+	public Tecnico() {
+
+	}
+
 	public Tecnico(int id, String nome, String categoria, String email, String telefone, int idFuncao) {
 		this.id = id;
 		this.nome = nome;
@@ -82,12 +86,21 @@ public class Tecnico {
 	}
 
 	public static Tecnico FromResultSet(ResultSet result) throws SQLException {
-		String id="id";
-		String categoria="categoria";
-		try {result.getString("idTecnico");id="idTecnico";}catch(Exception e){}
-		try {result.getString("usertype");id="usertype";}catch(Exception e){}
-		
-		return new Tecnico(result.getInt(id), result.getString("nome"),result.getString(categoria),result.getString("email"),result.getString("telefone"), result.getInt("idFuncao"));
+		String id = "id";
+		String categoria = "categoria";
+		try {
+			result.getString("idTecnico");
+			id = "idTecnico";
+		} catch (Exception e) {
+		}
+		try {
+			result.getString("usertype");
+			id = "usertype";
+		} catch (Exception e) {
+		}
+
+		return new Tecnico(result.getInt(id), result.getString("nome"), result.getString(categoria),
+				result.getString("email"), result.getString("telefone"), result.getInt("idFuncao"));
 	}
 
 }
