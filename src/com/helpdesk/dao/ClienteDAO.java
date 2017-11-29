@@ -17,13 +17,14 @@ public class ClienteDAO implements HelpdeskDAO<Cliente> {
 	}
 
 	@Override
-	public void Insert(Cliente client) {
+	public Cliente Insert(Cliente client) {
 		int lastIndex = 0;
 		if (list.stream().count() > 0) {
 			lastIndex = list.stream().max(Comparator.comparingInt(x -> x.getId())).get().getId();
 		}
 		client.setId(lastIndex);
 		list.add(client);
+		return client;
 	}
 
 	@Override

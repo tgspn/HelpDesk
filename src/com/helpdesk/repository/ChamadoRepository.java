@@ -23,6 +23,10 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 	public List<Chamado> findAllForSituacao(String string) throws SQLException {
 		return select("", "situacao='" + string + "'");
 	}
+	public List<Chamado> findAllBySituacaoAndCategoria(String string, String categoria) throws SQLException {
+		// TODO Auto-generated method stub
+		return select("", "situacao='" + string + "' AND chamado.categoria='"+categoria+"'");
+	}
 
 	@Override
 	protected String[] getFieldsInsert() {
@@ -32,6 +36,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		list.add("categoria");
 		list.add("assunto");
 		list.add("situacao");
+		list.add("nota");
 		list.add("idTecnico");
 		return list.toArray(new String[0]);
 	}
@@ -59,6 +64,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		list.add(obj.getCategoria());
 		list.add(obj.getAssunto());
 		list.add(obj.getSituacao());
+		list.add(obj.getNota());
 		list.add(obj.getTecnico().getId());
 		return list.toArray();
 	}
@@ -72,6 +78,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		map.put("assunto", obj.getAssunto());
 		map.put("situacao", obj.getSituacao());
 		map.put("idCliente", obj.getIdCliente());
+		map.put("nota", obj.getNota());
 		map.put("idTecnico", obj.getTecnico() != null ? obj.getTecnico().getId() : 0);
 		return map;
 	}
@@ -79,11 +86,11 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 	@Override
 	protected Chamado fillObject(ResultSet result) throws SQLException {
 		Tecnico tecnico = null;
-		if (!result.getString("idTecnico").isEmpty())
-			tecnico = new Tecnico(result.getInt("idTecnico"), result.getString("nome"), result.getInt("idFuncao"));
+		if (result.getString("idTecnico") != null)
+			tecnico = Tecnico.FromResultSet(result);
 
 		return new Chamado(result.getInt("id"), result.getString("descricao"), result.getString("categoria"),
-				result.getString("assunto"), result.getString("situacao"), result.getInt("idCliente"), tecnico);
+				result.getString("assunto"), result.getString("situacao"), result.getInt("idCliente"), tecnico,result.getString("nota"));
 	}
 
 	@Override
@@ -96,6 +103,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		map.put("assunto", SQLiteTypes.STRING);
 		map.put("situacao", SQLiteTypes.STRING);
 		map.put("idCliente", SQLiteTypes.INTEGER);
+		map.put("nota", SQLiteTypes.STRING);
 		map.put("idTecnico", SQLiteTypes.INTEGER);
 		return map;
 
@@ -108,13 +116,13 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 
 	@Override
 	protected String defineDefaultJoin() {
-		return "JOIN tecnico on tecnico.id=idTecnico";
+		return "LEFT JOIN tecnico on tecnico.id=idTecnico";
 	}
 
 	@Override
 	protected String defineDefaultParams() {
 
-		return "chamado.id,descricao,categoria,assunto,situacao,idCliente,tecnico.id as idTecnico,nome,idFuncao";
+		return "chamado.id,descricao,chamado.categoria,assunto,situacao,idCliente,tecnico.id as idTecnico,nome,tecnico.categoria as usertype,email,telefone,idFuncao,nota";
 	}
 
 	public static void Initialize() {
@@ -129,5 +137,7 @@ public class ChamadoRepository extends repositoryBase<Chamado> {
 		}
 
 	}
+
+	
 
 }

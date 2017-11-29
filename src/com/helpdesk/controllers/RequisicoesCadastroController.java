@@ -126,7 +126,7 @@ public class RequisicoesCadastroController implements Initializable {
 				String situacao = "Aberto";
 
 				dao.Insert(new Chamado(0, txtDescricao.getText(), cmbCategoria.getSelectionModel().getSelectedItem(),
-						txtAssunto.getText(), situacao, 1,Configuracao.getCurrent().getTecnico()));
+						txtAssunto.getText(), situacao, 1,Configuracao.getCurrent().getTecnico(),txtNota.getText()));
 
 			} else {
 

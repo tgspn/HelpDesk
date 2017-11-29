@@ -1,16 +1,19 @@
 package com.helpdesk.Util;
 
-public enum UserType {
-	TECNICO("Tecnico"),
-	ADMINISTRADOR("Administrador");
+public enum TecnicoType {
+	SOFTWARE("Software"),
+	HARDWARE("Hardware"),
+	REDES("Redes");
 	
 	private String type;
 
-	UserType(String type) {
+	TecnicoType(String type){
 		this.type=type;
 	}
+	
 	@Override
 	public String toString() {
 		return type;
 	}
+	
 }

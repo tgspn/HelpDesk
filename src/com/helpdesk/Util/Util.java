@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import com.helpdesk.controllers.CadastroUsuarioController;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,7 +26,7 @@ public class Util {
 		return sb.toString();
 
 	}
-	public static void OpenScene(String fileName) {
+	public static Stage OpenScene(String fileName) {
 		FXMLLoader f = new FXMLLoader();
 		Stage stage = new Stage();
 		Parent fxmlRoot;
@@ -33,11 +35,33 @@ public class Util {
 			stage.setScene(new Scene(fxmlRoot));
 			
 			stage.show();
+			return stage;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 
+	}
+	public static Stage OpenScene(String fileName, CadastroUsuarioController cad) {
+		FXMLLoader f = new FXMLLoader();
+		Stage stage = new Stage();
+		Parent fxmlRoot;
+		try {
+			
+					
+			fxmlRoot = (Parent) f.load(new FileInputStream(new File("src/com/helpdesk/views/" + fileName)));
+			f.setController(cad);
+			stage.setScene(new Scene(fxmlRoot));
+			
+			stage.show();
+			return stage;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 	
 }

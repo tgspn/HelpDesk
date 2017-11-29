@@ -11,7 +11,7 @@
 <AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="923.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.helpdesk.controllers.PrincipalTecnicoController">
    <children>
       <Button id="btnBloquear" fx:id="btnBloquear" layoutX="103.0" layoutY="158.0" mnemonicParsing="false" onAction="#bloquearHandle" prefHeight="49.0" prefWidth="119.0" text="Bloquear" />
-      <Button id="btnDesbloquear" fx:id="btnDesbloquear" layoutX="103.0" layoutY="215.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="119.0" text="Desbloquear" />
+      <Button id="btnDesbloquear" fx:id="btnDesbloquear" layoutX="103.0" layoutY="215.0" mnemonicParsing="false" onAction="#desbloquearHandle" prefHeight="49.0" prefWidth="119.0" text="Desbloquear" />
       <Button id="btnDetalhes" fx:id="btnDetalhes" layoutX="103.0" layoutY="271.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="119.0" text="Detalhes" />
       <TableView id="dgvRequisicoesGeral" fx:id="lvRequerimentos" layoutX="374.0" layoutY="60.0" prefHeight="382.0" prefWidth="890.0">
         <columns>
@@ -49,7 +49,7 @@
       <Button id="btnBuscatTecnico" layoutX="816.0" layoutY="477.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" text="Buscar" />
       <TextField id="txtBuscarGeral" layoutX="916.0" layoutY="21.0" prefHeight="29.0" prefWidth="348.0" />
       <TextField id="txtBuscarTecnico" layoutX="916.0" layoutY="477.0" prefHeight="29.0" prefWidth="348.0" />
-      <Button id="btnFinalizar" fx:id="btnFinalizar" layoutX="103.0" layoutY="331.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="119.0" text="Finalizar" />
+      <Button id="btnFinalizar" fx:id="btnFinalizar" layoutX="103.0" layoutY="331.0" mnemonicParsing="false" onAction="#finalizarHandle" prefHeight="49.0" prefWidth="119.0" text="Finalizar" />
       <Label layoutX="119.0" layoutY="817.0" text="Finalizado" textFill="#1229e0">
          <font>
             <Font size="18.0" />

@@ -22,9 +22,10 @@ public class TecnicoDAO implements HelpdeskDAO<Tecnico> {
 	}
 
 	@Override
-	public void Insert(Tecnico model) throws SQLException {
+	public Tecnico Insert(Tecnico model) throws SQLException {
 		repository.Insert(model);
 		list.add(model);
+		return model;
 	}
 
 	@Override

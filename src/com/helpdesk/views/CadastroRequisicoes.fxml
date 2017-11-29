@@ -42,7 +42,7 @@
                         <Label layoutX="855.0" layoutY="54.0" text="Pesquisa" />
                         <TextField fx:id="txtPesquisa" layoutX="923.0" layoutY="48.0" prefHeight="31.0" prefWidth="248.0" />
                         <Button id="btnPesquisa" defaultButton="true" layoutX="1183.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleConfirmarAction" prefHeight="31.0" prefWidth="75.0" text="Buscar" />
-                        <TextField fx:id="txtNota" layoutX="56.0" layoutY="565.0" prefHeight="183.0" prefWidth="407.0" />
+                        <TextField fx:id="txtNota" alignment="TOP_LEFT" layoutX="56.0" layoutY="565.0" prefHeight="183.0" prefWidth="407.0" />
                         <Label layoutX="59.0" layoutY="548.0" text="Notas:" />
                         <Label fx:id="lblAberto" layoutX="475.0" layoutY="804.0" text="Aberto" textFill="#27b522">
                            <font>

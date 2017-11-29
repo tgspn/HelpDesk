@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import com.helpdesk.Util.Configuracao;
 import com.helpdesk.Util.MessageBox;
-import com.helpdesk.Util.UserType;
+import com.helpdesk.Util.TecnicoCategoria;
 import com.helpdesk.Util.Util;
 import com.helpdesk.dao.UsuarioDAO;
 import com.helpdesk.models.Usuario;
@@ -49,9 +49,9 @@ public class LoginController implements Initializable {
 			if (user != null) {
 				Configuracao.getCurrent().setTecnico(user.getTecnico());
 				
-				if (user.getTipoUsuario().equals( UserType.ADMINISTRADOR.toString()))
+				if (user.getTipoUsuario().equals( TecnicoCategoria.ADMINISTRADOR.toString()))
 					Util.OpenScene("Principal.fxml");
-				else if (user.getTipoUsuario().equals( UserType.TECNICO.toString()))
+				else if (user.getTipoUsuario().equals( TecnicoCategoria.TECNICO.toString()))
 					Util.OpenScene("PrincipalTecnicos.fxml");
 				else {
 					MessageBox.Show("Não foi encontrado um tela para o seu perfil", "Erro", AlertType.ERROR);

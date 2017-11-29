@@ -3,6 +3,7 @@ package com.helpdesk.dao;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
+import com.helpdesk.models.Tecnico;
 import com.helpdesk.models.Usuario;
 import com.helpdesk.repository.UsuarioRepository;
 
@@ -18,8 +19,10 @@ public class UsuarioDAO implements HelpdeskDAO<Usuario> {
 		
 	}
 	@Override
-	public void Insert(Usuario inp) throws SQLException {
+	public Usuario Insert(Usuario inp) throws SQLException {
 		repository.Insert(inp);
+		
+		return inp;
 	}
 
 	@Override
@@ -43,6 +46,10 @@ public class UsuarioDAO implements HelpdeskDAO<Usuario> {
 	public Usuario Login(String user,String senha) throws NoSuchAlgorithmException, SQLException {
 		return repository.Login(user, senha);
 				
+	}
+	public Usuario findByTecnico(Tecnico tecnico) throws SQLException {
+		
+		return repository.findByTecnicoId(tecnico.getId());
 	}
 
 	

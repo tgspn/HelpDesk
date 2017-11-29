@@ -1,8 +1,5 @@
 package com.helpdesk.controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -12,25 +9,21 @@ import com.helpdesk.dao.ChamadoDAO;
 import com.helpdesk.dao.ClienteDAO;
 import com.helpdesk.models.Chamado;
 import com.helpdesk.models.Cliente;
-import com.helpdesk.repository.ChamadoRepository;
 import com.helpdesk.repository.ConnectionSingleton;
 
-import javafx.application.Application;
-import javafx.collections.FXCollections;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 public class PrincipalController implements Initializable {
@@ -53,7 +46,7 @@ public class PrincipalController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		try {
-			
+
 			com.helpdesk.dao.ClienteDAO c = new ClienteDAO();
 
 			Clientes = c.List();
@@ -103,11 +96,16 @@ public class PrincipalController implements Initializable {
 		}
 	}
 
-	
-
 	@FXML
 	private void handleRequisicoesAction(final ActionEvent event) {
-		Util.OpenScene("CadastroRequisicoes.fxml");
+		Util.OpenScene("CadastroRequisicoes.fxml").setOnHiding(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent arg0) {
+				lvRequerimentos.refresh();
+
+			}
+		});
 	}
 
 	@FXML
@@ -118,6 +116,7 @@ public class PrincipalController implements Initializable {
 	@FXML
 	private void handleTecnicosAction(final ActionEvent evt) {
 		Util.OpenScene("CadastroTecnicos.fxml");
+
 	}
 
 	@FXML
@@ -135,7 +134,5 @@ public class PrincipalController implements Initializable {
 		System.exit(0);
 
 	}
-
-	
 
 }

@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 public interface HelpdeskDAO<T> {
 
-	public void Insert(T inp) throws SQLException;
+	public T Insert(T inp) throws SQLException;
 
 	public void Remove(T inp) throws SQLException;
 

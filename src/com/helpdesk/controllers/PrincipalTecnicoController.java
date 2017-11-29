@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import com.helpdesk.Util.Configuracao;
 import com.helpdesk.Util.MessageBox;
 import com.helpdesk.Util.SituacaoType;
+import com.helpdesk.Util.TecnicoCategoria;
 import com.helpdesk.dao.ChamadoDAO;
 import com.helpdesk.models.Chamado;
 import com.helpdesk.models.Tecnico;
@@ -67,7 +68,8 @@ public class PrincipalTecnicoController implements Initializable {
 	private Timer timer;
 	private Timer timerMy;
 	private Tecnico tecnico = Configuracao.getCurrent().getTecnico();
-
+	private com.helpdesk.dao.ChamadoDAO dao;
+	private com.helpdesk.dao.ChamadoDAO daoMy;
 	@FXML
 	private AnchorPane panel;
 
@@ -80,9 +82,6 @@ public class PrincipalTecnicoController implements Initializable {
 			btnDesbloquear.setDisable(true);
 			btnDetalhes.setDisable(true);
 			btnFinalizar.setDisable(true);
-
-			com.helpdesk.dao.ChamadoDAO dao;
-			com.helpdesk.dao.ChamadoDAO daoMy;
 
 			dao = new ChamadoDAO();
 			daoMy = new ChamadoDAO();
@@ -97,28 +96,8 @@ public class PrincipalTecnicoController implements Initializable {
 			colMyAssunto.setCellValueFactory(new PropertyValueFactory<Chamado, String>("assunto"));
 			colMyDescricao.setCellValueFactory(new PropertyValueFactory<Chamado, String>("situacao"));
 
-			lvRequerimentos.setItems(dao.ListBySituacao(SituacaoType.ABERTO));
+			lvRequerimentos.setItems(dao.ListBySituacaoAndCategoria(SituacaoType.ABERTO,tecnico.getCategoria()));
 			lvMyRequerimentos.setItems(daoMy.ListForTecnico(tecnico.getId()));
-
-			// dao.List().addListener(new ListChangeListener<Chamado>() {
-			//
-			// @Override
-			// public void onChanged(Change<? extends Chamado> c) {
-			// lvRequerimentos.refresh();
-			//
-			// }
-			//
-			// });
-			//
-			// daoMy.List().addListener(new ListChangeListener<Chamado>() {
-			//
-			// @Override
-			// public void onChanged(Change<? extends Chamado> c) {
-			// lvMyRequerimentos.refresh();
-			//
-			// }
-			//
-			// });
 
 			lvRequerimentos.getSelectionModel().selectedItemProperty()
 					.addListener((obs, oldSelection, newSelection) -> {
@@ -148,7 +127,7 @@ public class PrincipalTecnicoController implements Initializable {
 			timer.schedule(new UpdateTimer(dao), 1000, 1000);
 
 			timerMy = new Timer();
-			timerMy.schedule(new UpdateMyTimer(daoMy), 1000, 1000);
+			timerMy.schedule(new UpdateMyTimer(daoMy), 1000, 3000);
 
 			Timer t = new Timer();
 			t.schedule(new TimerTask() {
@@ -175,8 +154,32 @@ public class PrincipalTecnicoController implements Initializable {
 		}
 	}
 
+	private void setTimer() {
+		timer = new Timer();
+		timer.schedule(new UpdateTimer(dao), 1000, 1000);
+	}
+
+	private void pararTimer() {
+		timer.cancel();
+		timer.purge();
+	}
+
+	private void setMyTimer() {
+		timerMy = new Timer();
+		timerMy.schedule(new UpdateMyTimer(daoMy), 1000, 1000);
+	}
+
+	private void pararMyTimer() {
+		timerMy.cancel();
+		timerMy.purge();
+	}
+
 	@FXML
 	private void bloquearHandle(final ActionEvent event) {
+
+		pararMyTimer();
+		pararTimer();
+
 		Chamado model = lvRequerimentos.getSelectionModel().selectedItemProperty().get();
 
 		model.setSituacao(SituacaoType.BLOQUEADO.toString());
@@ -187,11 +190,42 @@ public class PrincipalTecnicoController implements Initializable {
 			dao.Update(model);
 		} catch (SQLException | ClassNotFoundException e) {
 			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
+		} finally {
+			updateTableView();
+			setMyTimer();
+			setTimer();
+		}
+	}
+
+	private void updateTableView() {
+		lvMyRequerimentos.refresh();
+		lvRequerimentos.refresh();
+	}
+
+	@FXML
+	private void desbloquearHandle(final ActionEvent event) {
+		pararTimer();
+		pararMyTimer();
+		Chamado m = lvMyRequerimentos.getSelectionModel().selectedItemProperty().get();
+
+		m.setSituacao(SituacaoType.ABERTO.toString());
+		m.setTecnico(null);
+
+		try {
+			ChamadoDAO dao = new ChamadoDAO();
+			dao.Update(m);
+		} catch (SQLException | ClassNotFoundException e) {
+			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
+		} finally {
+			updateTableView();
+			setMyTimer();
+			setTimer();
 		}
 	}
 
 	@FXML
 	private void finalizarHandle(final ActionEvent event) {
+		pararMyTimer();
 		Chamado model = lvMyRequerimentos.getSelectionModel().selectedItemProperty().get();
 
 		model.setSituacao(SituacaoType.FINALIZADO.toString());
@@ -203,6 +237,9 @@ public class PrincipalTecnicoController implements Initializable {
 		} catch (SQLException | ClassNotFoundException e) {
 			MessageBox.Show(e.getMessage(), "Erro", AlertType.ERROR);
 		}
+
+		updateTableView();
+		setMyTimer();
 	}
 
 	class UpdateTimer extends TimerTask {
@@ -215,8 +252,7 @@ public class PrincipalTecnicoController implements Initializable {
 
 		public void run() {
 			try {
-				dao.ListBySituacao(SituacaoType.ABERTO);
-				System.out.println("Atualizado");
+				dao.ListBySituacaoAndCategoria(SituacaoType.ABERTO,tecnico.getCategoria());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -236,7 +272,6 @@ public class PrincipalTecnicoController implements Initializable {
 		public void run() {
 			try {
 				dao.ListForTecnico(tecnico.getId());
-				System.out.println("Atualizado");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

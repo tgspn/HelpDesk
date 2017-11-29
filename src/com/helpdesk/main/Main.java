@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
-import com.helpdesk.Util.UserType;
+import com.helpdesk.Util.TecnicoCategoria;
 import com.helpdesk.Util.Util;
 import com.helpdesk.models.Tecnico;
 import com.helpdesk.models.Usuario;
@@ -53,13 +53,13 @@ public class Main extends Application {
 
 	private void CreateUsuarioDefault() {
 
-		CreateUsuarioDefault("Administrador", UserType.ADMINISTRADOR, "admin", "123");
-		CreateUsuarioDefault("Tecnico", UserType.TECNICO, "tec", "123");
+		CreateUsuarioDefault("Administrador", TecnicoCategoria.ADMINISTRADOR, "admin", "123");
+		CreateUsuarioDefault("Tecnico", TecnicoCategoria.TECNICO, "tec", "123");
 	}
 
-	private void CreateUsuarioDefault(String nome, UserType type, String usuario, String senha) {
+	private void CreateUsuarioDefault(String nome, TecnicoCategoria type, String usuario, String senha) {
 		try {
-			Tecnico tec = new Tecnico(0, nome, 1);
+			Tecnico tec = new Tecnico(0, nome,"","","",1);
 			Usuario use = new Usuario(0, type.toString(), usuario, senha, tec);
 
 			TecnicoRepository tecRep = new TecnicoRepository();

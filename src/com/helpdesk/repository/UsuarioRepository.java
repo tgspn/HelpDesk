@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.helpdesk.Util.UserType;
+import com.helpdesk.Util.TecnicoCategoria;
 import com.helpdesk.Util.Util;
 import com.helpdesk.models.Tecnico;
 import com.helpdesk.models.Usuario;
@@ -38,11 +38,11 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 	protected int getPrimaryKeyValue(Usuario obj) {
 		return obj.getId();
 	}
-	
+
 	@Override
 	protected void setPrimaryKeyValue(Usuario obj, int value) {
 		obj.setId(value);
-		
+
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 		list.add(obj.getTecnico().getId());
 		return list.toArray();
 	}
-		
+
 	@Override
 	protected Map<String, Object> getUpdateValues(Usuario obj) {
 		Map<String, Object> map = new HashMap();
@@ -70,9 +70,11 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 	@Override
 	protected Usuario fillObject(ResultSet result) throws SQLException {
 		Tecnico tecnico = null;
-		if (!result.getString("idTecnico").isEmpty())
-			tecnico = new Tecnico(result.getInt("idTecnico"), result.getString("nome"), result.getInt("idFuncao"));
+
 		try {
+			if (result.getString("idTecnico") != null)
+				tecnico = Tecnico.FromResultSet(result);
+
 			return new Usuario(result.getInt("id"), result.getString("tipoUsuario"), result.getString("usuario"),
 					result.getString("senha"), tecnico);
 		} catch (NoSuchAlgorithmException e) {
@@ -100,36 +102,42 @@ public class UsuarioRepository extends repositoryBase<Usuario> {
 
 	@Override
 	protected String defineDefaultJoin() {
-		return "JOIN tecnico on tecnico.id=idTecnico";
+		return "LEFT JOIN tecnico on tecnico.id=idTecnico";
 	}
 
 	@Override
 	protected String defineDefaultParams() {
-		return "usuario.id,tipoUsuario,usuario,senha,tecnico.id as idTecnico,nome,idFuncao";
+		return "usuario.id,tipoUsuario,usuario,senha,tecnico.id as idTecnico,nome,categoria,email,telefone,idFuncao";
 	}
-	
-	public Usuario Login(String user,String pass) throws NoSuchAlgorithmException, SQLException {
-		List<Usuario> usuario=select("","usuario = '"+user+"' AND senha = '"+Util.MD5(pass)+"'");
-		if(usuario.isEmpty()||usuario.size()>1)
+
+	public Usuario Login(String user, String pass) throws NoSuchAlgorithmException, SQLException {
+		List<Usuario> usuario = select("", "usuario = '" + user + "' AND senha = '" + Util.MD5(pass) + "'");
+		if (usuario.isEmpty() || usuario.size() > 1)
 			return null;
 		else
 			return usuario.get(0);
-			
+
 	}
 
 	public static void Initialize() {
 		UsuarioRepository r;
 		try {
 			r = new UsuarioRepository();
-			r.CreateTable();			
-			
+			r.CreateTable();
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
+	public Usuario findByTecnicoId(int id) throws SQLException {
+		List<Usuario> usuario = select("", "idTecnico = " + id);
+		if (usuario.isEmpty())
+			return null;
+		else
+			return usuario.get(0);
+	}
 
 }
